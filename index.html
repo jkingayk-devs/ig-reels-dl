@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Instagram Reels Downloader - HD No Watermark</title>
+    <meta name="description" content="Download Instagram reels & videos free. No watermark, HD quality, works on mobile. Fast & secure.">
+    
+    <!-- FREE SEO - Google Loves This -->
+    <meta name="keywords" content="instagram reels downloader free, download ig reel, save instagram video no watermark, ig downloader">
+    
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui;background:linear-gradient(135deg,#667eea_0%,#764ba2_100%);min-height:100vh;padding:20px}.container{max-width:500px;margin:0 auto}.h1{text-align:center;color:white;font-size:2em;margin:20px 0 10px;text-shadow:0 2px 10px rgba(0,0,0,.3)}.subtitle{text-align:center;color:#f0f0f0;font-size:1.1em;margin-bottom:30px}.card{background:white;padding:30px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.15);margin-bottom:20px}input{width:100%;padding:15px;border:2px solid #e0e6ed;border-radius:12px;font-size:16px;margin-bottom:15px;transition:border .3s}input:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,.1)}.btn{width:100%;padding:18px;background:linear-gradient(45deg,#ff6b6b,#feca57);color:white;border:none;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;transition:all .3s}.btn:hover{transform:translateY(-2px);box-shadow:0 15px 30px rgba(255,107,107,.4)}.btn:disabled{opacity:.6;cursor:not-allowed}.loading,.result{display:none;text-align:center;padding:20px}#result img{max-width:100%;border-radius:12px;margin:15px 0}.dl-btn{display:inline-block;padding:12px 24px;margin:5px;background:#28a745;color:white;text-decoration:none;border-radius:8px;font-weight:700}.dl-btn.mp4{background:#007bff}.features{display:grid;grid-template-columns:1fr 1fr;gap:15px;color:white;text-align:center;font-size:14px;margin-top:30px}@media(max-width:480px){.container{padding:10px}.h1{font-size:1.6em}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="h1">📱 IG Reels Downloader</h1>
+        <p class="subtitle">Free • HD • No Watermark • Mobile Friendly</p>
+        
+        <div class="card">
+            <input type="url" id="url" placeholder="🔗 Paste Instagram Reel URL here...">
+            <button class="btn" onclick="download()">🚀 Download HD Reel</button>
+            <div class="loading" id="loading">🔄 Processing your reel...</div>
+        </div>
+        
+        <div id="result" class="result"></div>
+        
+        <div class="features">
+            <div>✅ HD Quality</div><div>✅ No Watermark</div>
+            <div>✅ 100% Free</div><div>✅ No Signup</div>
+        </div>
+    </div>
+
+    <script>
+    async function download(){
+        const url=document.getElementById('url').value;
+        const btn=document.querySelector('.btn');
+        const loading=document.getElementById('loading');
+        const result=document.getElementById('result');
+        
+        if(!url.includes('instagram.com')){
+            alert('❌ Instagram URL required');
+            return;
+        }
+        
+        btn.disabled=true;
+        btn.innerHTML='⏳ Processing...';
+        loading.style.display='block';
+        result.style.display='none';
+        
+        try{
+            // FREE WORKING API (Instagram scraper)
+            const data=await fetch('https://api.ghost.cool/instagram?url='+encodeURIComponent(url)).then(r=>r.json());
+            
+            if(data.video){
+                result.innerHTML=`
+                    <img src="${data.thumbnail}" alt="Preview">
+                    <a href="${data.video}" class="dl-btn mp4" download>📹 Download HD Video</a>
+                    ${data.image?'<a href="'+data.image+'" class="dl-btn" download>🖼️ Download Photo</a>':''}
+                `;
+            }else{
+                result.innerHTML='<p style="color:#ff6b6b">❌ Could not process. Try public reel.</p>';
+            }
+        }catch(e){
+            result.innerHTML='<p style="color:#ff6b6b">❌ Network error. Try again.</p>';
+        }
+        
+        btn.disabled=false;
+        btn.innerHTML='🚀 Download HD Reel';
+        loading.style.display='none';
+        result.style.display='block';
+    }
+    document.getElementById('url').focus();
+    </script>
+</body>
+</html>
